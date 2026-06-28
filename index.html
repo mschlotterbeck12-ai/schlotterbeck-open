@@ -101,6 +101,16 @@
   .champ-card .label { font-size: 0.85rem; color: #6a7d70; margin-top: 4px; }
   .champ-card .loc { font-size: 0.9rem; color: #355040; margin-top: 8px; }
   .champ-card .loc::before { content: "📍 "; }
+  .champ-card .story {
+    font-size: 0.92rem;
+    color: #3a4d42;
+    text-align: left;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #d8cfa8;
+    font-style: italic;
+    line-height: 1.55;
+  }
 
   /* ---------- Leaderboard ---------- */
   table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px var(--shadow); }
@@ -198,9 +208,13 @@
    EDIT YOUR TOURNAMENT DATA HERE
    ========================================================= */
 const CHAMPIONS = [
-  { year: "2024", name: "Evan",    label: "First Champion",  loc: "Holden Beach, NC",       photo: "images/holden-beach-nc.jpeg", trophy: "🥇" },
-  { year: "2025", name: "Matthew", label: "Second Champion", loc: "Acadia National Park, ME", photo: "images/acadia-maine.jpeg",  trophy: "🥇" },
+  { year: "2025", name: "Evan",    label: "First Champion",  loc: "Holden Beach, NC",       photo: "images/holden-beach-nc.jpeg", trophy: "🥇" },
+  { year: "2026", name: "Matthew", label: "Second Champion", loc: "Acadia National Park, ME", photo: "images/acadia-maine.jpeg",  trophy: "🥇",
+    story: "The golfer fought a hard round — starting 4 over, but battling back to take a 2-stroke lead and finish the day at even par. Even with the other golfers saying \"Matt's out of it,\" he showed tremendous grit and determination to win the 2026 Schlotterbeck Open. What a round!" },
 ];
+
+// Everyone who has played, including those still chasing their first title.
+const ROSTER = ["Evan", "Matthew", "Mom", "Dad"];
 
 // Add every photo filename you put in the images/ folder.
 // Example: { file: "images/2024-final.jpg", caption: "2024 Final Hole" }
@@ -223,23 +237,25 @@ CHAMPIONS.forEach(c => {
         <div class="name">${c.name}</div>
         <div class="label">${c.label}</div>
         <div class="loc">${c.loc}</div>
+        ${c.story ? `<p class="story">${c.story}</p>` : ""}
       </div>
     </div>`);
 });
 
-// --- Build leaderboard from champions (titles per player) ---
+// --- Build leaderboard from the roster (titles per player) ---
 const tally = {};
-CHAMPIONS.forEach((c, i) => {
-  if (!tally[c.name]) tally[c.name] = { titles: 0, best: i + 1 };
-  tally[c.name].titles++;
-});
+ROSTER.forEach(name => { tally[name] = 0; });
+CHAMPIONS.forEach(c => { tally[c.name] = (tally[c.name] || 0) + 1; });
+
 const rows = Object.entries(tally)
-  .map(([name, d]) => ({ name, titles: d.titles }))
-  .sort((a, b) => b.titles - a.titles);
+  .map(([name, titles]) => ({ name, titles }))
+  .sort((a, b) => b.titles - a.titles || a.name.localeCompare(b.name));
+
 const lb = document.getElementById("leaderboard-body");
 rows.forEach((r, i) => {
+  const best = r.titles > 0 ? "🏆 Champion" : "—";
   lb.insertAdjacentHTML("beforeend", `
-    <tr><td>${i + 1}</td><td>${r.name}</td><td>${r.titles}</td><td>🏆 Champion</td></tr>`);
+    <tr><td>${i + 1}</td><td>${r.name}</td><td>${r.titles}</td><td>${best}</td></tr>`);
 });
 
 // --- Render gallery ---
