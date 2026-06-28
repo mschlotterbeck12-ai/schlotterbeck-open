@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>The Schlotterbeck Open</title>
+<style>
+  :root {
+    --green-deep: #0b4d2c;
+    --green: #157a43;
+    --green-light: #2da55f;
+    --turf: #3aa75a;
+    --cream: #f7f4e9;
+    --sand: #e9dcb8;
+    --gold: #d4af37;
+    --ink: #14241a;
+    --shadow: rgba(8, 40, 22, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(45,165,95,0.12), transparent 40%),
+      var(--cream);
+    line-height: 1.55;
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    position: relative;
+    background: linear-gradient(160deg, var(--green-deep), var(--green) 60%, var(--green-light));
+    color: var(--cream);
+    text-align: center;
+    padding: 70px 20px 90px;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 40px;
+    background: var(--cream);
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 92% 60%, 84% 0, 76% 60%, 68% 0, 60% 60%, 52% 0, 44% 60%, 36% 0, 28% 60%, 20% 0, 12% 60%, 4% 0, 0 60%);
+  }
+  .flag {
+    font-size: 54px;
+    line-height: 1;
+    display: inline-block;
+    animation: sway 3s ease-in-out infinite;
+  }
+  @keyframes sway { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+  header.hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    letter-spacing: 1px;
+    margin: 10px 0 6px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  }
+  header.hero .est {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    opacity: 0.85;
+  }
+  .gold { color: var(--gold); }
+
+  /* ---------- Layout ---------- */
+  main { max-width: 960px; margin: 0 auto; padding: 0 20px 80px; }
+  section { margin-top: 56px; }
+  h2 {
+    font-size: 1.8rem;
+    color: var(--green-deep);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  h2 .dot { font-size: 1.4rem; }
+  p.lead { max-width: 640px; color: #355040; }
+
+  /* ---------- Champions ---------- */
+  .champs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .champ-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 26px 22px;
+    box-shadow: 0 8px 24px var(--shadow);
+    border-top: 6px solid var(--gold);
+    text-align: center;
+    transition: transform 0.18s ease;
+  }
+  .champ-card:hover { transform: translateY(-4px); }
+  .champ-card .year { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #8a7a3a; }
+  .champ-card .trophy { font-size: 46px; margin: 8px 0; }
+  .champ-card .name { font-size: 1.5rem; font-weight: 700; color: var(--green-deep); }
+  .champ-card .label { font-size: 0.85rem; color: #6a7d70; margin-top: 4px; }
+
+  /* ---------- Leaderboard ---------- */
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px var(--shadow); }
+  th, td { padding: 14px 16px; text-align: left; }
+  thead { background: var(--green-deep); color: var(--cream); }
+  tbody tr:nth-child(even) { background: #f1efe2; }
+  tbody tr td:first-child { font-weight: 700; color: var(--green); width: 48px; text-align: center; }
+
+  /* ---------- Gallery ---------- */
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .gallery figure {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px var(--shadow);
+  }
+  .gallery img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .gallery figcaption { padding: 8px 10px; font-size: 0.82rem; color: #5a6e60; }
+  .photo-placeholder {
+    height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    background: repeating-linear-gradient(45deg, var(--sand), var(--sand) 12px, #e0d2a8 12px, #e0d2a8 24px);
+    color: #9a8a55; font-size: 0.85rem; text-align: center; padding: 0 12px;
+  }
+
+  /* ---------- Rules ---------- */
+  .rules { background: #fff; border-radius: 16px; padding: 24px 28px; box-shadow: 0 8px 24px var(--shadow); }
+  .rules ol { padding-left: 22px; }
+  .rules li { margin: 8px 0; }
+
+  footer { text-align: center; padding: 30px; color: #6a7d70; font-size: 0.85rem; }
+
+  .badge { display:inline-block; background: var(--gold); color: #463808; font-weight:700; font-size:0.7rem; letter-spacing:1px; padding:3px 9px; border-radius:20px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="flag">⛳</div>
+  <div class="est">Est. 2024 · Family Tradition</div>
+  <h1>The <span class="gold">Schlotterbeck</span> Open</h1>
+  <p>A mini golf tournament where the Schlotterbeck family settles it on the green.</p>
+</header>
+
+<main>
+
+  <!-- CHAMPIONS -->
+  <section id="champions">
+    <h2><span class="dot">🏆</span> Champions</h2>
+    <p class="lead">The names etched into family legend. Win the Open, take the crown.</p>
+    <div class="champs" id="champ-grid"><!-- filled by JS --></div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="leaderboard">
+    <h2><span class="dot">📋</span> All-Time Leaderboard</h2>
+    <p class="lead">Titles won across every edition of the Open.</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Player</th><th>Titles</th><th>Best Finish</th></tr>
+      </thead>
+      <tbody id="leaderboard-body"><!-- filled by JS --></tbody>
+    </table>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <h2><span class="dot">📸</span> Photo Gallery</h2>
+    <p class="lead">Moments from the course. (Drop your photos into the <code>images/</code> folder and they'll show up here.)</p>
+    <div class="gallery" id="gallery-grid"><!-- filled by JS --></div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules">
+    <h2><span class="dot">📜</span> House Rules</h2>
+    <div class="rules">
+      <ol>
+        <li>Lowest total strokes across all 18 holes wins the Open.</li>
+        <li>Max 6 strokes per hole — pick up and move on.</li>
+        <li>Honesty system. We're family. Mostly.</li>
+        <li>Defending champion tees off last.</li>
+        <li>Winner's name goes on the wall (this website counts).</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ⛳ The Schlotterbeck Open · Private family page · <span id="year"></span>
+</footer>
+
+<script>
+/* =========================================================
+   EDIT YOUR TOURNAMENT DATA HERE
+   ========================================================= */
+const CHAMPIONS = [
+  { year: "2024", name: "Evan",     label: "First Champion",  trophy: "🥇" },
+  { year: "2025", name: "Matthew",  label: "Second Champion", trophy: "🥇" },
+];
+
+// Add every photo filename you put in the images/ folder.
+// Example: { file: "images/2024-final.jpg", caption: "2024 Final Hole" }
+const PHOTOS = [
+  // { file: "images/photo1.jpg", caption: "Caption here" },
+];
+/* ========================================================= */
+
+// --- Render champions ---
+const champGrid = document.getElementById("champ-grid");
+CHAMPIONS.forEach(c => {
+  champGrid.insertAdjacentHTML("beforeend", `
+    <div class="champ-card">
+      <div class="year">${c.year} Open</div>
+      <div class="trophy">${c.trophy}</div>
+      <div class="name">${c.name}</div>
+      <div class="label">${c.label}</div>
+    </div>`);
+});
+
+// --- Build leaderboard from champions (titles per player) ---
+const tally = {};
+CHAMPIONS.forEach((c, i) => {
+  if (!tally[c.name]) tally[c.name] = { titles: 0, best: i + 1 };
+  tally[c.name].titles++;
+});
+const rows = Object.entries(tally)
+  .map(([name, d]) => ({ name, titles: d.titles }))
+  .sort((a, b) => b.titles - a.titles);
+const lb = document.getElementById("leaderboard-body");
+rows.forEach((r, i) => {
+  lb.insertAdjacentHTML("beforeend", `
+    <tr><td>${i + 1}</td><td>${r.name}</td><td>${r.titles}</td><td>🏆 Champion</td></tr>`);
+});
+
+// --- Render gallery ---
+const gg = document.getElementById("gallery-grid");
+if (PHOTOS.length === 0) {
+  for (let i = 0; i < 4; i++) {
+    gg.insertAdjacentHTML("beforeend", `
+      <figure><div class="photo-placeholder">Photo coming soon</div>
+      <figcaption>Add photos to images/</figcaption></figure>`);
+  }
+} else {
+  PHOTOS.forEach(p => {
+    gg.insertAdjacentHTML("beforeend", `
+      <figure><img src="${p.file}" alt="${p.caption}" loading="lazy" />
+      <figcaption>${p.caption}</figcaption></figure>`);
+  });
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
