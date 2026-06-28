@@ -86,17 +86,21 @@
   .champ-card {
     background: #fff;
     border-radius: 16px;
-    padding: 26px 22px;
+    overflow: hidden;
     box-shadow: 0 8px 24px var(--shadow);
     border-top: 6px solid var(--gold);
     text-align: center;
     transition: transform 0.18s ease;
   }
   .champ-card:hover { transform: translateY(-4px); }
+  .champ-card .photo { width: 100%; height: 280px; object-fit: cover; display: block; background: var(--sand); }
+  .champ-card .body { padding: 20px 22px 26px; }
   .champ-card .year { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #8a7a3a; }
-  .champ-card .trophy { font-size: 46px; margin: 8px 0; }
+  .champ-card .trophy { font-size: 40px; margin: 6px 0; }
   .champ-card .name { font-size: 1.5rem; font-weight: 700; color: var(--green-deep); }
   .champ-card .label { font-size: 0.85rem; color: #6a7d70; margin-top: 4px; }
+  .champ-card .loc { font-size: 0.9rem; color: #355040; margin-top: 8px; }
+  .champ-card .loc::before { content: "📍 "; }
 
   /* ---------- Leaderboard ---------- */
   table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px var(--shadow); }
@@ -194,26 +198,32 @@
    EDIT YOUR TOURNAMENT DATA HERE
    ========================================================= */
 const CHAMPIONS = [
-  { year: "2024", name: "Evan",     label: "First Champion",  trophy: "🥇" },
-  { year: "2025", name: "Matthew",  label: "Second Champion", trophy: "🥇" },
+  { year: "2024", name: "Evan",    label: "First Champion",  loc: "Holden Beach, NC",       photo: "images/holden-beach-nc.jpeg", trophy: "🥇" },
+  { year: "2025", name: "Matthew", label: "Second Champion", loc: "Acadia National Park, ME", photo: "images/acadia-maine.jpeg",  trophy: "🥇" },
 ];
 
 // Add every photo filename you put in the images/ folder.
 // Example: { file: "images/2024-final.jpg", caption: "2024 Final Hole" }
 const PHOTOS = [
-  // { file: "images/photo1.jpg", caption: "Caption here" },
+  { file: "images/holden-beach-nc.jpeg", caption: "Champion crowned at Holden Beach, NC 🦞" },
+  { file: "images/acadia-maine.jpeg",    caption: "Winning scorecard at Acadia National Park, ME ⛳" },
 ];
 /* ========================================================= */
 
 // --- Render champions ---
 const champGrid = document.getElementById("champ-grid");
 CHAMPIONS.forEach(c => {
+  const img = c.photo ? `<img class="photo" src="${c.photo}" alt="${c.name}, ${c.loc}" loading="lazy" />` : "";
   champGrid.insertAdjacentHTML("beforeend", `
     <div class="champ-card">
-      <div class="year">${c.year} Open</div>
-      <div class="trophy">${c.trophy}</div>
-      <div class="name">${c.name}</div>
-      <div class="label">${c.label}</div>
+      ${img}
+      <div class="body">
+        <div class="year">${c.year} Open</div>
+        <div class="trophy">${c.trophy}</div>
+        <div class="name">${c.name}</div>
+        <div class="label">${c.label}</div>
+        <div class="loc">${c.loc}</div>
+      </div>
     </div>`);
 });
 
